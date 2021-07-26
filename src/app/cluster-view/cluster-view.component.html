@@ -1,0 +1,10 @@
+<ng-container *ngIf="(clusters | async) === null">
+    Loading tabs...
+</ng-container>
+
+<mat-tab-group>
+    <mat-tab *ngFor="let cluster of clusters | async">
+        <app-table [cluster]="cluster"></app-table>
+    </mat-tab>
+</mat-tab-group>
+  

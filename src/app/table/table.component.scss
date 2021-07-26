@@ -1,0 +1,65 @@
+/* Structure */
+table {
+    width: 100%;
+}
+.max{
+    margin:50px;
+    min-width: 830px;
+}
+
+mat-card{
+    min-width: 830px;
+}
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.mat-table {
+    border-collapse: separate!important;
+    border-spacing:0 4px!important;
+}
+.mat-cell {
+    padding: 8px 8px 8px 0;
+}
+
+.footer-button-container {
+    height: 50px;
+    position: relative;
+}
+  
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.spaced{
+    margin:10px
+}
+
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-container {
+    display: inline-block;
+    position: relative;
+  } 
+
+
+td , th {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+}

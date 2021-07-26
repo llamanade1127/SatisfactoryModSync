@@ -1,0 +1,108 @@
+
+<mat-card raised class="max">
+    <mat-card-title>
+        <h1 class="mat-headline">{{clusterName}} Editor</h1>
+    </mat-card-title>
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+              
+    <mat-progress-bar  mode="indeterminate" *ngIf="isRefreshing"></mat-progress-bar>
+    <div class="container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mod-container">
+            
+            <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let mod"> {{mod.position}} </td>
+            </ng-container>
+                  
+                    <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let mod"> {{mod.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let mod">{{mod.description}}</td>
+            </ng-container>
+                  
+                    <!-- Weight Column -->
+            <ng-container matColumnDef="link">
+                <th mat-header-cell *matHeaderCellDef> Version </th>
+                <td mat-cell *matCellDef="let mod"> <a href={{mod.link}}>{{mod.version}}</a></td>
+            </ng-container>
+
+                    <!--Delete Column-->
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let mod" > 
+                    <div class="button-container">
+                        <div class="spinner-container" *ngIf="mod.isDeleting">
+                            <mat-spinner *ngIf=mod.isDeleting class="button-delete-loading" [diameter]="24" ></mat-spinner>
+                        </div>
+                        <button mat-raised-button color="warn" [disabled]=mod.isDeleting matTooltip="Delete {{mod.name}} from {{clusterName}}" matTooltipPosition="after" (click)="deleteItem(mod)">Delete</button> 
+                    </div>
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="clusterId">
+                <td mat-footer-cell *matFooterCellDef colspan="4">
+                    Cluster Id: {{clusterId}}
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matFooterRowDef="['clusterId']"></tr>
+            </table>
+    </div>
+
+    <mat-card-footer>
+        <div class="footer-button-container">
+            <div class="center">
+                <div class="button-container">
+                    <div class="spinner-container" *ngIf=isRefreshing >
+                        <mat-spinner class="button-delete-loading" [diameter]="24" ></mat-spinner>
+                    </div>
+                    <button 
+                    [disabled]="isRefreshing"
+                    mat-raised-button color="primary" 
+                    class="spaced" 
+                    matTooltip="Check for new mods"
+                    matTooltipPosition="below"
+                    (click)="refreshMods()">
+                    Refresh
+                </button>
+                </div>
+                <button 
+                    [disabled]="isLaunching"
+                    mat-raised-button color="accent" 
+                    class="spaced" 
+                    matTooltip="Add a mod to the list"
+                    (click)="launchGameWithCluster()">
+                    Launch using {{clusterName}} 
+                </button>
+                <button
+                    [disabled]="isLeavingCluster"
+                    mat-raised-button 
+                    color="warn" 
+                    class="spaced" 
+                    matTooltip="Leave the current Cluster"
+                    (click)="leaveCluster()"
+                >
+                Leave Cluster
+                </button>
+
+            </div>
+        </div>
+    </mat-card-footer>
+            
+</mat-card>   
+

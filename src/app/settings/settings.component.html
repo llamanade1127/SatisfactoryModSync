@@ -1,0 +1,24 @@
+
+
+<mat-card>
+    <ng-container *ngIf="(userObs | async) === null">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+        Loading...
+    </ng-container>
+    <ng-container *ngFor="let user of userObs | async">
+        <mat-card-title>{{user.username}} Settings</mat-card-title>
+        <mat-card-content>
+            <mat-card>
+                <h3 class="mat-headline">Current Path: {{user.settings.gamePath}}</h3>
+                <input matInput [(ngModel)]="fileDir" placeholder='game directory' />
+            </mat-card>
+            <mat-card>
+                <h3 class="mat-headline">Username: {{user.username}}</h3>
+                <input matInput [(ngModel)]="username" placeholder="username">
+            </mat-card>
+
+            <button mat-raised-button color="accent" (click)="submit()"></button>
+        </mat-card-content>
+    </ng-container>
+
+</mat-card>
